@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: streamlit-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: streamlit-app
+  template:
+    metadata:
+      labels:
+        app: streamlit-app
+    spec:
+      containers:
+      - name: streamlit-container
+        image: registry.hub.docker.com/shonpaz123/streamlit-app
+        ports:
+        - containerPort: 8501
+        env:
+        - name: AZURE_API_KEY
+          value: ""
+        - name: OPENAI_KEY
+          value: ""
+        - name: CHROMADB_HOST
+          value: "chroma-service"
+        - name: CHROMADB_PORT
+          value: "8000"
+
